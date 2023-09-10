@@ -90,6 +90,8 @@ func RegisterRouter(router *gin.Engine) {
 		authorized.POST("/file", service.UpdateLedgerSourceFileContent)
 		authorized.POST("/import/alipay", service.ImportAliPayCSV)
 		authorized.POST("/import/wx", service.ImportWxPayCSV)
+		authorized.POST("/import/icbc", service.ImportICBCCSV)
+		authorized.POST("/import/abc", service.ImportABCCSV)
 		authorized.GET("/ledger/check", service.CheckLedger)
 		authorized.DELETE("/ledger", service.DeleteLedger)
 	}
@@ -99,7 +101,7 @@ func main() {
 	var secret string
 	var port int
 	flag.StringVar(&secret, "secret", "", "服务器密钥")
-	flag.IntVar(&port, "p", 3001, "端口号")
+	flag.IntVar(&port, "p", 10000, "端口号")
 	flag.Parse()
 
 	// 读取配置文件
@@ -126,8 +128,8 @@ func main() {
 	}
 	// gin 日志设置
 	gin.DisableConsoleColor()
-	fs, _ := os.Create("gin.log")
-	gin.DefaultWriter = io.MultiWriter(fs)
+	fs, _ := os.Create("logs/gin.log")
+	gin.DefaultWriter = io.MultiWriter(fs, os.Stdout)
 	router := gin.Default()
 	// 注册路由
 	RegisterRouter(router)
