@@ -17,12 +17,9 @@ ENV GO111MODULE=on \
     CGO_ENABLED=0 \
     PORT=80
 
-WORKDIR /tmp/build
-RUN git clone https://github.com/frankwuzp/beancount-gs.git
-
-WORKDIR /tmp/build/beancount-gs
-RUN mkdir -p public/default_icons && cp -rn public/icons/* public/default_icons
-
+WORKDIR /build
+COPY . .
+COPY public/icons ./public/default_icons
 RUN go build .
 
 # 镜像
@@ -37,10 +34,5 @@ COPY --from=go_builder /build/config ./config
 COPY --from=go_builder /build/public ./public
 COPY --from=go_builder /build/logs ./logs
 
-# volumes 挂载目录会导 /app/public/icons 中的图标被覆盖，这里将默认图标在挂载后重新拷贝图标
-RUN cp -rn /app/public/default_icons/* /app/public/icons
-
 ENV PATH "/app/bin:$PATH"
 EXPOSE 80
-
-CMD ["/app/beancount-gs", "-p", "80"]
