@@ -1,7 +1,8 @@
 # beancount-gs
 
-![license](https://img.shields.io/github/license/BaoXuebin/beancount-gs?style=flat-square)
-[![docker image size](https://img.shields.io/docker/image-size/xdbin/beancount-gs/latest?label=docker-image&style=flat-square)](https://hub.docker.com/repository/docker/xdbin/beancount-gs/general)
+![license](https://img.shields.io/github/license/BaoXuebin/beancount-gs)
+[![docker image size](https://img.shields.io/docker/image-size/xdbin/beancount-gs/latest?label=docker-image)](https://hub.docker.com/repository/docker/xdbin/beancount-gs/general)
+![docker pulls](https://img.shields.io/docker/pulls/xdbin/beancount-gs)
 
 [演示地址](https://beancount.xdbin.com/)
 [使用文档](https://www.yuque.com/chuyi-ble7p/beancount-gs)
@@ -25,7 +26,7 @@
 - [X] 投资管理(FIFO)
 - [X] 第三方账单导入(支付宝，微信，工商银行，农业银行)
 - [X] 分期记账
-- [ ] 事件
+- [X] 事件
 
 ## 如何使用
 
@@ -64,9 +65,6 @@ services:
     image: frankwuzp/beancount-gs:latest
     ports:
       - "10000:80"
-    # volumes 挂载目录会导 /app/public/icons 中的图标被覆盖，这里将默认图标在挂载后重新拷贝图标
-    command: >
-      sh -c "cp -rn /app/public/default_icons/* /app/public/icons && ./beancount-gs -p 80"
     volumes:
       - "${dataPath:-/data/beancount}:/data/beancount"
       - "${dataPath:-/data/beancount}/icons:/app/public/icons"
@@ -91,6 +89,10 @@ dataPath=自定义的目录
 ## 开源协议
 
 [MIT](https://github.com/BaoXuebin/beancount-gs/blob/main/License) @BaoXuebin
+
+## 赞助
+
+[赞助地址](https://xdbin.com/sponsor)
 
 ## 感谢
 
