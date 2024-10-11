@@ -1,5 +1,6 @@
 {
   "files": {
+<<<<<<< HEAD
     "favicon.ico": "/web/favicon.ico",
     "logo192.png": "/web/logo192.png",
     "logo512.png": "/web/logo512.png",
@@ -11,6 +12,16 @@
     "main.css": "/web/static/css/main.9d0b2e60.chunk.css",
     "main.js": "/web/static/js/main.6636e710.chunk.js",
     "runtime-main.js": "/web/static/js/runtime-main.c6d62716.js",
+=======
+    "static/js/0.435e7a2e.chunk.js": "/web/static/js/0.435e7a2e.chunk.js",
+    "static/js/1.9dae1a02.chunk.js": "/web/static/js/1.9dae1a02.chunk.js",
+    "static/js/2.3dca96b0.chunk.js": "/web/static/js/2.3dca96b0.chunk.js",
+    "static/js/3.dbc9ff13.chunk.js": "/web/static/js/3.dbc9ff13.chunk.js",
+    "static/js/4.e31ce94a.chunk.js": "/web/static/js/4.e31ce94a.chunk.js",
+    "main.css": "/web/static/css/main.c42e041b.chunk.css",
+    "main.js": "/web/static/js/main.f50e7271.chunk.js",
+    "runtime-main.js": "/web/static/js/runtime-main.a133c472.js",
+>>>>>>> f46031414150d70627ad0d6d45fcdc10daaefe26
     "static/css/7.b9d59b33.chunk.css": "/web/static/css/7.b9d59b33.chunk.css",
     "static/js/7.68ba3194.chunk.js": "/web/static/js/7.68ba3194.chunk.js",
     "static/js/8.8414c35b.chunk.js": "/web/static/js/8.8414c35b.chunk.js",
