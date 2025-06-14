@@ -160,7 +160,7 @@ func OpenOrCreateLedger(c *gin.Context) {
 		resultMap["ledgerId"] = ledgerId
 		resultMap["title"] = userLedger.Title
 		resultMap["currency"] = userLedger.OperatingCurrency
-		resultMap["currencySymbol"] = script.GetCommoditySymbol(userLedger.OperatingCurrency)
+		resultMap["currencySymbol"] = script.GetServerCommoditySymbol(userLedger.OperatingCurrency)
 		resultMap["createDate"] = userLedger.CreateDate
 		OK(c, resultMap)
 		return
@@ -176,7 +176,7 @@ func OpenOrCreateLedger(c *gin.Context) {
 	resultMap["ledgerId"] = ledgerId
 	resultMap["title"] = userLedger.Title
 	resultMap["currency"] = userLedger.OperatingCurrency
-	resultMap["currencySymbol"] = script.GetCommoditySymbol(userLedger.OperatingCurrency)
+	resultMap["currencySymbol"] = script.GetCommoditySymbol(ledgerId, userLedger.OperatingCurrency)
 	resultMap["createDate"] = userLedger.CreateDate
 	OK(c, resultMap)
 }
@@ -213,20 +213,18 @@ func CheckLedger(c *gin.Context) {
 	ledgerConfig := script.GetLedgerConfigFromContext(c)
 	cmd := exec.Command("bean-check", script.GetLedgerIndexFilePath(ledgerConfig.DataPath))
 	cmd.Stderr = &stderr
-	output, err := cmd.Output()
+	_, err := cmd.Output()
+	result := make([]string, 0)
 	if err != nil {
 		errors := strings.Split(stderr.String(), "\r\n")
-		result := make([]string, 0)
 		for _, e := range errors {
 			if e == "" {
 				continue
 			}
 			result = append(result, e)
 		}
-		OK(c, result)
-	} else {
-		OK(c, string(output))
 	}
+	OK(c, result)
 }
 
 func createNewLedger(loginForm LoginForm, ledgerId string) (*script.Config, error) {
@@ -271,6 +269,11 @@ func createNewLedger(loginForm LoginForm, ledgerId string) (*script.Config, erro
 	}
 	// add accounts cache
 	err = script.LoadLedgerAccounts(ledgerId)
+	if err != nil {
+		return nil, err
+	}
+	// add currency cache
+	err = script.LoadLedgerCurrencyMap(&ledgerConfig)
 	if err != nil {
 		return nil, err
 	}

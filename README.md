@@ -1,10 +1,12 @@
 # beancount-gs
 
-![license](https://img.shields.io/github/license/BaoXuebin/beancount-gs?style=flat-square)
-[![docker image size](https://img.shields.io/docker/image-size/xdbin/beancount-gs/latest?label=docker-image&style=flat-square)](https://hub.docker.com/repository/docker/xdbin/beancount-gs/general)
+![license](https://img.shields.io/github/license/BaoXuebin/beancount-gs)
+[![docker image size](https://img.shields.io/docker/image-size/xdbin/beancount-gs/latest?label=docker-image)](https://hub.docker.com/repository/docker/xdbin/beancount-gs/general)
+[![docker pulls](https://img.shields.io/docker/pulls/xdbin/beancount-gs)](https://hub.docker.com/repository/docker/xdbin/beancount-gs/general)
 
+[前端项目地址](https://github.com/BaoXuebin/beancount-web)
 [演示地址](https://beancount.xdbin.com/)
-[使用文档](https://www.yuque.com/chuyi-ble7p/beancount-ns)
+[使用文档](https://www.yuque.com/chuyi-ble7p/beancount-gs)
 
 ## 介绍
 
@@ -23,9 +25,9 @@
 - [X] 多币种
 - [X] 标签
 - [X] 投资管理(FIFO)
-- [X] 第三方账单导入(支付宝，微信支付)
+- [X] 第三方账单导入(支付宝，微信，工商银行，农业银行)
 - [X] 分期记账
-- [ ] 事件
+- [X] 事件
 
 ## 如何使用
 
@@ -54,20 +56,32 @@ xdbin/beancount-gs:latest
 
 **docker-compose**
 
+在指定目录创建文件 `docker-compose.yml`，然后复制下面内容到这个文件，执行 `docker-compose up -d`
+
 ```yaml
 version: "3.9"
 services:
   app:
     container_name: beancount-gs
-    image: frankwuzp/beancount-gs:latest
+    image: xdbin/beancount-gs:${tag:-latest}
     ports:
       - "10000:80"
     volumes:
-      - "${dataPath:-/data/beancount}:${dataPath:-/data/beancount}"
+      - "${dataPath:-/data/beancount}:/data/beancount"
       - "${dataPath:-/data/beancount}/icons:/app/public/icons"
       - "${dataPath:-/data/beancount}/config:/app/config"
       - "${dataPath:-/data/beancount}/bak:/app/bak"
+      - "${dataPath:-/data/beancount}/logs:/app/logs"
 ```
+
+默认的文件存储路径为 `/data/beancount`，如果你想更换其他路径，可以在当前目录下新建 `var.env`，然后将下面内容复制到这个文件
+
+```properties
+tag=latest
+dataPath=自定义的目录
+```
+
+执行 `docker-compose --env-file ./var.env up -d` 即可
 
 ## 项目负责人
 
@@ -77,9 +91,8 @@ services:
 
 [MIT](https://github.com/BaoXuebin/beancount-gs/blob/main/License) @BaoXuebin
 
-## 感谢
+## 感谢️
 
-<a href="https://jb.gg/OpenSourceSupport" style="display: flex; justify-content: left; align-items: center; flex-direction: row;">
-<img alt="JetBrains" src="./jb_beam.png" style="width: 120px; height: 120px;" />
-<h3>Licenses for Open Source Development</h3>
-</a>
+[赞助地址](https://xdbin.com/sponsor)
+
+感谢 **@Cabin**，**@潇** 两位朋友的赞助支持❤️
