@@ -1,5 +1,8 @@
 {
   "files": {
+    "favicon.ico": "/web/favicon.ico",
+    "logo192.png": "/web/logo192.png",
+    "logo512.png": "/web/logo512.png",
     "main.css": "/web/static/css/main.c87495cb.css",
     "main.js": "/web/static/js/main.ad3a4211.js",
     "static/js/999.1397823d.chunk.js": "/web/static/js/999.1397823d.chunk.js",
